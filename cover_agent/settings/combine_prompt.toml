@@ -1,0 +1,21 @@
+[combine_prompt]
+
+system="""\
+"""
+user="""\
+Task:
+You are tasked with combining multiple independent JUnit test files, each separated by '----------\n', into a single comprehensive test file. Ensure all imports are gathered without redundancy, all test methods are combined into a single class, and annotations remain intact.
+
+Test Files:
+{{seperated_test_files}}
+
+Output Format:
+The response should be valid YAML in the following structure:
+
+test_class_name: |
+  <class_name>
+test_code: |
+  <complete_combined_code>
+"""
+
+

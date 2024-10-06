@@ -1,0 +1,37 @@
+[test_generation_full]
+system="""\
+"""
+
+user="""\
+## Overview
+You are a code assistant that accepts a {{ language }} source file.
+Your goal is to generate 20 unit tests in order to increase the code coverage against the source file.
+
+Additional guidelines:
+- Carefully analyze the provided code. Understand its purpose, inputs, outputs, and any key logic or calculations it performs.
+- Brainstorm a list of test cases you think will be necessary to fully validate the correctness of the code and achieve 100% code coverage.
+- After each individual test has been added, review all tests to ensure they cover the full range of scenarios, including how to handle exceptions or errors.
+- If the original test file contains a test suite, assume that each generated test will be a part of the same suite. Ensure that the new tests are consistent with the existing test suite in terms of style, naming conventions, and structure.
+
+## Source File
+Here is the source file that you will be writing tests against, called `{{ source_file_name }}`.
+Note that we have manually added line numbers for each line of code, to help you understand the code coverage report.
+Those numbers are not a part of the original code.
+=========
+{{ source_file_numbered|trim }}
+=========
+
+
+## Response
+Generate a complete file that contains 20 unit tests in a proper executable format. These tests should cover the following:
+- All branches and conditions in the code.
+- Different input types (e.g., valid, invalid, boundary cases).
+- Exceptional scenarios (e.g., errors or edge cases that the code might face).
+- Ensure all parts of the source code are tested, including any helper functions, methods, or classes.
+
+Please return the test file in the following format:
+- If the language is Java, use JUnit for testing.
+- Ensure all tests are structured clearly and are ready to execute in the respective testing framework.
+
+Only provide the code without any explanations.
+"""

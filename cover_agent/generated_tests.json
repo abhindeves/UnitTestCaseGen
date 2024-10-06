@@ -1,0 +1,42 @@
+{
+    "language": "java",
+    "existing_test_function_signature": "...\n",
+    "new_tests": [
+        {
+            "test_behavior": "Test that the metersToKilometers function correctly converts 1000 meters to 1 kilometer.\n",
+            "lines_to_cover": "[10, 11]\n",
+            "test_name": "test_meters_to_kilometers_basic\n",
+            "test_code": "package com.example;\n\nimport static org.junit.jupiter.api.Assertions.assertEquals;\nimport org.junit.jupiter.api.Test;\n\nclass TestMetersToKilometers {\n    @Test\n    void test_meters_to_kilometers_basic() {\n        DistanceConverterController controller = new DistanceConverterController();\n        double result = controller.metersToKilometers(1000);\n        assertEquals(1.0, result, 0.00001);\n    }\n}\n",
+            "new_imports_code": "\"\"\n",
+            "test_tags": "happy path",
+            "test_class": "TestMetersToKilometers"
+        },
+        {
+            "test_behavior": "Test that the kilometersToMeters function correctly converts 1 kilometer to 1000 meters.\n",
+            "lines_to_cover": "[15, 16]\n",
+            "test_name": "test_kilometers_to_meters_basic\n",
+            "test_code": "package com.example;\n\nimport static org.junit.jupiter.api.Assertions.assertEquals;\nimport org.junit.jupiter.api.Test;\n\nclass TestKilometersToMeters {\n    @Test\n    void test_kilometers_to_meters_basic() {\n        DistanceConverterController controller = new DistanceConverterController();\n        double result = controller.kilometersToMeters(1);\n        assertEquals(1000.0, result, 0.00001);\n    }\n}\n",
+            "new_imports_code": "\"\"\n",
+            "test_tags": "happy path",
+            "test_class": "TestKilometersToMeters"
+        },
+        {
+            "test_behavior": "Test that the milesToKilometers function correctly converts 1 mile to 1.60934 kilometers.\n",
+            "lines_to_cover": "[20, 21]\n",
+            "test_name": "test_miles_to_kilometers_basic\n",
+            "test_code": "package com.example;\n\nimport static org.junit.jupiter.api.Assertions.assertEquals;\nimport org.junit.jupiter.api.Test;\n\nclass TestMilesToKilometers {\n    @Test\n    void test_miles_to_kilometers_basic() {\n        DistanceConverterController controller = new DistanceConverterController();\n        double result = controller.milesToKilometers(1);\n        assertEquals(1.60934, result, 0.00001);\n    }\n}\n",
+            "new_imports_code": "\"\"\n",
+            "test_tags": "happy path",
+            "test_class": "TestMilesToKilometers"
+        },
+        {
+            "test_behavior": "Test that the kilometersToMiles function correctly converts 1 kilometer to approximately 0.621371 miles.\n",
+            "lines_to_cover": "[25, 26]\n",
+            "test_name": "test_kilometers_to_miles_basic\n",
+            "test_code": "package com.example;\n\nimport static org.junit.jupiter.api.Assertions.assertEquals;\nimport org.junit.jupiter.api.Test;\n\nclass TestKilometersToMiles {\n    @Test\n    void test_kilometers_to_miles_basic() {\n        DistanceConverterController controller = new DistanceConverterController();\n        double result = controller.kilometersToMiles(1);\n        assertEquals(0.621371, result, 0.00001);\n    }\n}\n",
+            "new_imports_code": "\"\"\n",
+            "test_tags": "happy path",
+            "test_class": "TestKilometersToMiles"
+        }
+    ]
+}

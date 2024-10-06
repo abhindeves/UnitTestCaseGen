@@ -1,0 +1,103 @@
+[test_generation_prompt]
+system="""\
+"""
+
+user="""\
+## Overview
+You are a code assistant that accepts a {{ language }} source file.
+Your goal is to generate unit tests in order to achive more than 95 percentage of code coverage against the source file.
+
+
+Instructions:
+1. Carefully analyze the given Code.
+2. Create diverse unit tests that cover all aspects of the function's expected behavior, including:
+  - Basic functionality
+  - Edge cases
+  - Corner cases
+  - Boundary conditions
+  - Invalid inputs
+  - Empty inputs
+  - Large inputs
+  - Special characters
+  - Unicode characters (if applicable)
+  - Case sensitivity (if applicable)
+  - Multiline inputs (if applicable)
+  - Non-matching scenarios
+
+
+Additional guidelines:
+- Carefully analyze the provided code. Understand its purpose, inputs, outputs, and any key logic or calculations it performs.
+- Each individual test should be a standalone file, containing all necessary imports to run the test independently against the source file.
+- Import all required PACKAGES similar to the source file.
+- Brainstorm a list of test cases you think will be necessary to fully validate the correctness of the code and achieve 100% code coverage.
+- After each individual test has been added, review all tests to ensure they cover the full range of scenarios, including how to handle exceptions or errors.
+- If the original test file contains a test suite, assume that each generated test will be a part of the same suite. Ensure that the new tests are consistent with the existing test suite in terms of style, naming conventions, and structure.
+
+
+## Source File
+Here is the source file that you will be writing tests against, called `{{ source_file_name }}`.
+Note that we have manually added line numbers for each line of code, to help you understand the code coverage report.
+Those numbers are not a part of the original code.
+=========
+{{ source_file_numbered|trim }}
+=========
+
+
+## Response
+The output must be a YAML object equivalent to type $NewTests, according to the following Pydantic definitions:
+=====
+class SingleTest(BaseModel):
+    test_behavior: str = Field(description="Short description of the behavior the test covers")
+{%- if language in ["python","java"] %}
+    lines_to_cover: str = Field(description="A list of line numbers, currently uncovered, that this specific new test aims to cover")
+    test_name: str = Field(description=" A short test name, in snake case, that reflects the behaviour to test")
+{%- else %}
+    test_name: str = Field(description=" A short unique test name, that should reflect the test objective")
+{%- endif %}
+    test_code: str = Field(description="Each tests should be written as an independent JUnit test file, containing only the necessary imports and test logic.Always do the package declaration at the top of each file.Each Test file should have a NEW CLASS NAME. The test should assume that the source program is available in the classpath during execution. Setup and teardown code should be included in the test file if required, but the source code itself should not be embedded within the test.")
+    new_imports_code: str = Field(description="Empty string")
+    test_tags: str = Field(description="A single label that best describes the test, out of: ['happy path', 'edge case','other']")
+    test_class: str = Field(description="Class name used in the test")
+
+class NewTests(BaseModel):
+    language: str = Field(description="The programming language of the source code")
+    existing_test_function_signature: str = Field(description="A single line repeating a signature header of one of the existing test functions")
+    new_tests: List[SingleTest] = Field(min_items=1, max_items={{ max_tests }}, description="A list of new test functions to append to the existing test suite, aiming to increase the code coverage. Each test should run as-is, without requiring any additional inputs or setup code. Don't introduce new dependencies")
+=====
+
+Example output:
+```yaml
+language: {{ language }}
+existing_test_function_signature: |
+  ...
+new_tests:
+- test_behavior: |
+    Test that the function returns the correct output for a single element list
+{%- if language in ["python","java"] %}
+  lines_to_cover: |
+    [1,2,5, ...]
+  test_name: |
+    test_single_element_list
+{%- else %}
+  test_name: |
+    ...
+{%- endif %}
+  test_code: |
+{%- if language in ["python"] %}
+    def ...
+{%- else %}
+    ...
+{%- endif %}
+  new_imports_code: |
+    ""
+  test_tags: happy path
+    ...
+  test_class:
+    ...
+```
+
+Use block scalar('|') to format each YAML output.
+
+Response (should be a valid YAML, and nothing else):
+```yaml
+"""
