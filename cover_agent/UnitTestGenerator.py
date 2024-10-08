@@ -4,6 +4,7 @@ import os
 import re
 import json
 from wandb.sdk.data_types.trace_tree import Trace
+from tabulate import tabulate
 
 from CustomLogger import CustomLogger
 from PromptBuilder import PromptBuilder
@@ -105,13 +106,15 @@ class UnitTestGenerator:
 
     def validate_test(self,generated_test: dict,test_class_name: str,test_name: str):
         # Create a new directory for test files
-        
+        self.logger.info("Got into validate_test function")
         test_dir = self.test_file_path
 
         # Create a test file with the number of tests in the filename
+        self.logger.info("Creating test_file with the info received")
         test_file_name = f"{test_class_name}.py"
         test_file_path = os.path.join(test_dir, test_file_name)
         
+        self.logger.info("Reading the code into test_code variable")
         test_code = generated_test.get('test_code',"").rstrip()
         additional_imports = generated_test.get('new_imports_code',"").strip()
         
@@ -135,10 +138,13 @@ class UnitTestGenerator:
         self.logger.info("Returned from runner!!!")
         
         if exit_code !=0:
-            print("**********STDOUT**********")
-            print(stdout)
-            print("**********STDERR**********")
-            print(stderr)
+            
+            # print("**********STDOUT**********")
+            # print(stdout)
+            # print("**********STDERR**********")
+            # print(stderr)
+            
+            self.display_result(test_class_name,exit_code,stderr,stdout)
 
             result_dict = {
                 'status':'FAIL',
@@ -161,10 +167,11 @@ class UnitTestGenerator:
             except Exception as e:
                 self.logger.info(f"Error::: {e}")
         else:
-            print("**********STDOUT**********")
-            print(stdout)
-            print("**********STDERR**********")
-            print(exit_code)
+            # print("**********STDOUT**********")
+            # print(stdout)
+            # print("**********STDERR**********")
+            # print(exit_code)
+            self.display_result(test_class_name,exit_code,stderr,stdout)
             result_dict = {
                 'status':'PASS',
                 'reason':'Test PASS',
@@ -246,7 +253,22 @@ class UnitTestGenerator:
 
         return test_class_name
     
-
+    def display_result(self,test_class_name: str,exit_code: int,stderr: str,stdout: str) ->None:
+        status = "PASS" if exit_code == 0 else "FAIL"
+        temp_dict = {"Test Name": test_class_name,"Status":status}
+        result = [temp_dict]
+        
+        if status == "PASS":
+            print("\nQuick Test Report")
+            print(tabulate(result,headers='keys',tablefmt='fancy_grid'))
+            print()
+            
+        else:
+            print("\nQuick Test Report")
+            print(tabulate(result,headers='keys',tablefmt='fancy_grid'))
+            print("\n**********STDERR**********")
+            print(stderr)
+            print()
     
 
     

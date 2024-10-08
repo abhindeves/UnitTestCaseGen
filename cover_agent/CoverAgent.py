@@ -84,7 +84,7 @@ class CoverAgent:
         pass_test_list = [junit_test for junit_test in code_list if junit_test.get('exit_code') == 0]
         self.logger.info(f"{len(pass_test_list)} Test Passed")
         fail_test_list = [junit_test for junit_test in code_list if junit_test.get('exit_code') != 0]
-        if fail_test_list == {}:
+        if fail_test_list == [{}]:
             self.logger.info("0 Test Failed")
         else:
             self.logger.info(f"{len(fail_test_list)} Test Failed")
@@ -98,18 +98,19 @@ class CoverAgent:
         
         
         stdout, stderr, exit_code = Runner.run_command(final_test_name, self.maven_file_path)
+        self.test_gen.display_result(final_test_name,exit_code,stderr,stdout)
         
-        self.logger.info("********************FINAL TEST FILE RESULTS*****************************")
-        if exit_code !=0:
-            print("**********STDOUT**********")
-            print(stdout)
-            print("**********STDERR**********")
-            print(stderr)
-        else:
-            print("**********STDOUT**********")
-            print(stdout)
-            print("**********STDERR**********")
-            print(exit_code)
+        # self.logger.info("********************FINAL TEST FILE RESULTS*****************************")
+        # if exit_code !=0:
+        #     print("**********STDOUT**********")
+        #     print(stdout)
+        #     print("**********STDERR**********")
+        #     print(stderr)
+        # else:
+        #     print("**********STDOUT**********")
+        #     print(stdout)
+        #     print("**********STDERR**********")
+        #     print(exit_code)
         
 
     

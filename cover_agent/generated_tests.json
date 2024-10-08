@@ -3,37 +3,37 @@
     "existing_test_function_signature": "...\n",
     "new_tests": [
         {
-            "test_behavior": "Test that the metersToKilometers function correctly converts 1000 meters to 1 kilometer\n",
+            "test_behavior": "Test that the metersToKilometers function converts meters to kilometers correctly.\n",
             "lines_to_cover": "[10, 11]\n",
-            "test_name": "test_meters_to_kilometers_conversion\n",
-            "test_code": "package com.example;\n\nimport org.junit.jupiter.api.Test;\nimport static org.junit.jupiter.api.Assertions.assertEquals;\n\nclass TestMetersToKilometers {\n    @Test\n    void testMetersToKilometers() {\n        DistanceConverterController controller = new DistanceConverterController();\n        double result = controller.metersToKilometers(1000);\n        assertEquals(1.0, result, 0.00001);\n    }\n}\n",
+            "test_name": "test_meters_to_kilometers\n",
+            "test_code": "package com.example;\n\nimport org.junit.jupiter.api.Test;\nimport static org.junit.jupiter.api.Assertions.assertEquals;\n\nclass TestMetersToKilometers {\n    private final DistanceConverterController controller = new DistanceConverterController();\n\n    @Test\n    void test_meters_to_kilometers() {\n        assertEquals(1.0, controller.metersToKilometers(1000), 0.001);\n        assertEquals(0.5, controller.metersToKilometers(500), 0.001);\n        assertEquals(0.0, controller.metersToKilometers(0), 0.001);\n    }\n}\n",
             "new_imports_code": "\"\"\n",
             "test_tags": "happy path",
             "test_class": "TestMetersToKilometers"
         },
         {
-            "test_behavior": "Test that the kilometersToMeters function correctly converts 1 kilometer to 1000 meters\n",
+            "test_behavior": "Test that the kilometersToMeters function converts kilometers to meters correctly.\n",
             "lines_to_cover": "[15, 16]\n",
-            "test_name": "test_kilometers_to_meters_conversion\n",
-            "test_code": "package com.example;\n\nimport org.junit.jupiter.api.Test;\nimport static org.junit.jupiter.api.Assertions.assertEquals;\n\nclass TestKilometersToMeters {\n    @Test\n    void testKilometersToMeters() {\n        DistanceConverterController controller = new DistanceConverterController();\n        double result = controller.kilometersToMeters(1);\n        assertEquals(1000.0, result, 0.00001);\n    }\n}\n",
+            "test_name": "test_kilometers_to_meters\n",
+            "test_code": "package com.example;\n\nimport org.junit.jupiter.api.Test;\nimport static org.junit.jupiter.api.Assertions.assertEquals;\n\nclass TestKilometersToMeters {\n    private final DistanceConverterController controller = new DistanceConverterController();\n\n    @Test\n    void test_kilometers_to_meters() {\n        assertEquals(1000.0, controller.kilometersToMeters(1), 0.001);\n        assertEquals(500.0, controller.kilometersToMeters(0.5), 0.001);\n        assertEquals(0.0, controller.kilometersToMeters(0), 0.001);\n    }\n}\n",
             "new_imports_code": "\"\"\n",
             "test_tags": "happy path",
             "test_class": "TestKilometersToMeters"
         },
         {
-            "test_behavior": "Test that the milesToKilometers function correctly converts 1 mile to kilometers\n",
+            "test_behavior": "Test that the milesToKilometers function converts miles to kilometers correctly.\n",
             "lines_to_cover": "[20, 21]\n",
-            "test_name": "test_miles_to_kilometers_conversion\n",
-            "test_code": "package com.example;\n\nimport org.junit.jupiter.api.Test;\nimport static org.junit.jupiter.api.Assertions.assertEquals;\n\nclass TestMilesToKilometers {\n    @Test\n    void testMilesToKilometers() {\n        DistanceConverterController controller = new DistanceConverterController();\n        double result = controller.milesToKilometers(1);\n        assertEquals(1.60934, result, 0.00001);\n    }\n}\n",
+            "test_name": "test_miles_to_kilometers\n",
+            "test_code": "package com.example;\n\nimport org.junit.jupiter.api.Test;\nimport static org.junit.jupiter.api.Assertions.assertEquals;\n\nclass TestMilesToKilometers {\n    private final DistanceConverterController controller = new DistanceConverterController();\n\n    @Test\n    void test_miles_to_kilometers() {\n        assertEquals(1.60934, controller.milesToKilometers(1), 0.00001);\n        assertEquals(0.80467, controller.milesToKilometers(0.5), 0.00001);\n        assertEquals(0.0, controller.milesToKilometers(0), 0.00001);\n    }\n}\n",
             "new_imports_code": "\"\"\n",
             "test_tags": "happy path",
             "test_class": "TestMilesToKilometers"
         },
         {
-            "test_behavior": "Test that the kilometersToMiles function correctly converts 1 kilometer to miles\n",
+            "test_behavior": "Test that the kilometersToMiles function converts kilometers to miles correctly.\n",
             "lines_to_cover": "[25, 26]\n",
-            "test_name": "test_kilometers_to_miles_conversion\n",
-            "test_code": "package com.example;\n\nimport org.junit.jupiter.api.Test;\nimport static org.junit.jupiter.api.Assertions.assertEquals;\n\nclass TestKilometersToMiles {\n    @Test\n    void testKilometersToMiles() {\n        DistanceConverterController controller = new DistanceConverterController();\n        double result = controller.kilometersToMiles(1);\n        assertEquals(0.621371, result, 0.00001);\n    }\n}\n",
+            "test_name": "test_kilometers_to_miles\n",
+            "test_code": "package com.example;\n\nimport org.junit.jupiter.api.Test;\nimport static org.junit.jupiter.api.Assertions.assertEquals;\n\nclass TestKilometersToMiles {\n    private final DistanceConverterController controller = new DistanceConverterController();\n\n    @Test\n    void test_kilometers_to_miles() {\n        assertEquals(0.621371, controller.kilometersToMiles(1), 0.00001);\n        assertEquals(0.310685, controller.kilometersToMiles(0.5), 0.00001);\n        assertEquals(0.0, controller.kilometersToMiles(0), 0.00001);\n    }\n}\n",
             "new_imports_code": "\"\"\n",
             "test_tags": "happy path",
             "test_class": "TestKilometersToMiles"
