@@ -4,7 +4,7 @@ system="""\
 """
 user="""\
 Task:
-You are tasked with combining multiple independent JUnit test files, each separated by '----------\n', into a single comprehensive test file. Ensure all imports are gathered without redundancy, all test methods are combined into a single class, and annotations remain intact.
+You are tasked with combining multiple independent JUnit test files, each separated by '----------\n', into a single comprehensive test file. Ensure all imports are gathered without redundancy, all test methods are combined into a single class, and annotations remain intact.Always do the com.example package declaration at the top of the file.
 
 Test Files:
 {{seperated_test_files}}

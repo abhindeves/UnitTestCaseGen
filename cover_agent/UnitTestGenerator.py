@@ -5,6 +5,7 @@ import re
 import json
 from wandb.sdk.data_types.trace_tree import Trace
 from tabulate import tabulate
+import pandas as pd
 
 from CustomLogger import CustomLogger
 from PromptBuilder import PromptBuilder
@@ -258,6 +259,42 @@ class UnitTestGenerator:
             self.logger.info(f"Error::: {e}")
         return None
 
+
+    def display_coverage(self,maven_path):
+        jacoco = '\\target\\site\\jacoco\\jacoco.csv'
+        full_path = maven_path + jacoco
+        if os.path.exists(full_path) and os.path.isfile(full_path):
+            print(full_path)
+            df = pd.read_csv(full_path,index_col = [0])
+            coverage_result = []
+            for index,row in df.iterrows():
+                coverage_result.append(calculate_coverage(row))
+            
+            print("\nCode Coverage Quick Overview\n")
+            print(tabulate(coverage_result,headers='keys',tablefmt='fancy_grid'))
+        else:
+            print(f"Invalid path: {full_path} or file not found.")
+            
+def calculate_coverage(row):
+    instruction_total = row['INSTRUCTION_MISSED'] + row['INSTRUCTION_COVERED']
+    print(instruction_total)
+    branch_total = row['BRANCH_MISSED'] + row['BRANCH_COVERED']
+    print(branch_total)
+    line_total = row['LINE_MISSED'] + row['LINE_COVERED']
+    print(line_total)
+    
+    instruction_coverage = (row['INSTRUCTION_COVERED']/instruction_total) * 100 if instruction_total else 0
+    branch_coverage = (row['BRANCH_COVERED']/branch_total) * 100 if branch_total else 0
+    line_coverage = (row['LINE_COVERED']/line_total) * 100 if line_total else 0
+    
+    return {
+        'Class':row['CLASS'],
+        'Instruction Coverage (%)': round(instruction_coverage,2),
+        'Branch Coverage (%)': round(branch_coverage,2),
+        'Line Coverage (%)': round(line_coverage,2)
+    }
+        
+        
     
 
 

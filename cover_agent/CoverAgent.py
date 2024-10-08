@@ -99,7 +99,7 @@ class CoverAgent:
         
         stdout, stderr, exit_code = Runner.run_command(final_test_name, self.maven_file_path)
         self.test_gen.display_result(final_test_name,exit_code,stderr,stdout)
-        
+        self.test_gen.display_coverage(self.maven_file_path)
 
     
         self.logger.info('Flow returned to CoverAgent run module')
