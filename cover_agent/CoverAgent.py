@@ -36,11 +36,26 @@ class CoverAgent:
         if type == 'file':
             if not os.path.isfile(path):
                 raise FileNotFoundError(f"Source file not found at {path}")
+            
+            file_name = path.split('\\')[-1]
+            file_type = file_name.split('.')[-1]
+            
+            if file_type != 'java':
+                raise TypeError(f"You Provided {file_name} which is not a java file, please provide Java Code")
             self.logger.info(f"Destination file found at {path}")
             
         elif type == 'folder':
             if not os.path.isdir(path):
                 raise FileNotFoundError(f"Test Folder not found at {path}")
+            
+            if len(os.listdir(path)) != 0:
+                self.logger.info("Some files are already present in the given destination file")
+                list_of_code_already_present = os.listdir(path)
+                print("\nList of file already present")
+                print(list_of_code_already_present)
+                print("\nPlease ceck the above files and clear it from the destination file or provide another file")
+                print(f"Destination Given: {path}")
+                exit(-1)
             self.logger.info(f'Test Folder found at {path}')
             
 
