@@ -139,10 +139,6 @@ class UnitTestGenerator:
         
         if exit_code !=0:
             
-            # print("**********STDOUT**********")
-            # print(stdout)
-            # print("**********STDERR**********")
-            # print(stderr)
             
             self.display_result(test_class_name,exit_code,stderr,stdout)
 
@@ -155,22 +151,9 @@ class UnitTestGenerator:
                 'stdout':stdout,
                 'test':test_code
             }
+            self.delete_test(test_class_name,test_file_path)
 
-            self.logger.info(f"Trying to delete the Failed test{test_class_name}")
-            try:
-                os.remove(test_file_path)
-                self.logger.info(f"{test_class_name} DELETED FROM {test_file_path}")
-            except FileNotFoundError:
-                self.logger.info(f"{test_class_name} Not Found At {test_file_path}")
-            except PermissionError:
-                self.logger.info(f"Permission denied to delete {test_class_name} from {test_file_path}")
-            except Exception as e:
-                self.logger.info(f"Error::: {e}")
         else:
-            # print("**********STDOUT**********")
-            # print(stdout)
-            # print("**********STDERR**********")
-            # print(exit_code)
             self.display_result(test_class_name,exit_code,stderr,stdout)
             result_dict = {
                 'status':'PASS',
@@ -181,16 +164,7 @@ class UnitTestGenerator:
                 'stdout':stdout,
                 'test':test_code
             }
-            self.logger.info(f"Trying to delete the PASSED test{test_class_name}")
-            try:
-                os.remove(test_file_path)
-                self.logger.info(f"{test_class_name} DELETED FROM {test_file_path}")
-            except FileNotFoundError:
-                self.logger.info(f"{test_class_name} Not Found At {test_file_path}")
-            except PermissionError:
-                self.logger.info(f"Permission denied to delete {test_class_name} from {test_file_path}")
-            except Exception as e:
-                self.logger.info(f"Error::: {e}")
+            self.delete_test(test_class_name,test_file_path)
         return result_dict
 
 
@@ -269,7 +243,20 @@ class UnitTestGenerator:
             print("\n**********STDERR**********")
             print(stderr)
             print()
-    
+            
+    def delete_test(self,test_name: str,test_file_path:str) -> None:
+        
+        self.logger.info(f"Trying to delete the PASSED test{test_name}")
+        try:
+            os.remove(test_file_path)
+            self.logger.info(f"{test_name} DELETED FROM {test_file_path}")
+        except FileNotFoundError:
+            self.logger.info(f"{test_name} Not Found At {test_file_path}")
+        except PermissionError:
+            self.logger.info(f"Permission denied to delete {test_name} from {test_file_path}")
+        except Exception as e:
+            self.logger.info(f"Error::: {e}")
+        return None
 
     
 
