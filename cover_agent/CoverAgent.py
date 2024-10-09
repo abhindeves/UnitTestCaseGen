@@ -84,13 +84,26 @@ class CoverAgent:
         pass_test_list = [junit_test for junit_test in code_list if junit_test.get('exit_code') == 0]
         self.logger.info(f"{len(pass_test_list)} Test Passed")
         fail_test_list = [junit_test for junit_test in code_list if junit_test.get('exit_code') != 0]
+        
         if fail_test_list == [{}]:
             self.logger.info("0 Test Failed")
+            
         else:
             self.logger.info(f"{len(fail_test_list)} Test Failed")
+            
+        if fail_test_list != [{}]:
+            while True:
+                choice = input(f"Do you want to check why {len(fail_test_list)} failed or continue with only the passed tests?\n1. Yes, Check why Tests failed\n2. No Continue with only passed tests\nChoice (1/2): ")
+                if choice == '1':
+                    print("Trying to Diagonise the failed tests!!")
+                    continue
+                elif choice == '2':
+                    break
+                else:
+                    print("Invalid Choice!!")
+                    continue
         
-        
-        self.logger.info('Calling combine_pass_test function to pass all the sucess test case')
+        self.logger.info('Calling combine_pass_test function to pass all the success test case')
         
         combined_response = self.test_gen.combine_pass_test(pass_test_list)
         

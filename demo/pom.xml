@@ -74,7 +74,8 @@
         <artifactId>maven-surefire-plugin</artifactId>
         <version>2.22.2</version>
         <configuration>
-          <skip>test</skip>
+          <!-- Remove the skip configuration -->
+          <!-- <skip>test</skip> -->
         </configuration>
       </plugin>
 
@@ -83,7 +84,8 @@
           <artifactId>maven-surefire-plugin</artifactId>
           <version>2.22.2</version>
           <configuration>
-              <skipTests>true</skipTests>
+              <!-- Remove the skipTests configuration -->
+              <!-- <skipTests>true</skipTests> -->
           </configuration>
       </plugin>
 
@@ -112,18 +114,27 @@
         <version>${jacoco-maven-plugin.version}</version>
         <executions>
           <execution>
-            <id>pre-unit-test</id>
             <goals>
               <goal>prepare-agent</goal>
             </goals>
           </execution>
+
           <execution>
-            <id>post-unit-test</id>
-            <phase>test</phase>
-            <goals>
-              <goal>report</goal>
-            </goals>
+              <id>report</id>
+              <phase>test</phase>
+              <goals>
+                  <goal>report</goal>
+              </goals>
           </execution>
+
+
+          <execution>
+              <id>post-unit-test</id>
+              <goals>
+                  <goal>check</goal>
+              </goals>
+          </execution>
+
           <execution>
             <id>check-unit-test</id>
             <phase>test</phase>

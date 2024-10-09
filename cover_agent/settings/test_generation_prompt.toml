@@ -5,25 +5,8 @@ system="""\
 user="""\
 ## Overview
 You are a code assistant that accepts a {{ language }} source file.
-Your goal is to generate unit tests in order to achive more than 95 percentage of code coverage against the source file.
-
-
-Instructions:
-1. Carefully analyze the given Code.
-2. Create diverse unit tests that cover all aspects of the function's expected behavior, including:
-  - Basic functionality
-  - Edge cases
-  - Corner cases
-  - Boundary conditions
-  - Invalid inputs
-  - Empty inputs
-  - Large inputs
-  - Special characters
-  - Unicode characters (if applicable)
-  - Case sensitivity (if applicable)
-  - Multiline inputs (if applicable)
-  - Non-matching scenarios
-
+Your goal is to generate 10 unit tests in order to achive more than 95 percentage of code coverage against the source file.
+also generate 1 test case that will fail.
 
 Additional guidelines:
 - Carefully analyze the provided code. Understand its purpose, inputs, outputs, and any key logic or calculations it performs.

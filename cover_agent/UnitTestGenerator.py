@@ -233,9 +233,13 @@ class UnitTestGenerator:
         temp_dict = {"Test Name": test_class_name,"Status":status}
         result = [temp_dict]
         
-        if status == "PASS":
+        if status == 'PASS':
             print("\nQuick Test Report")
             print(tabulate(result,headers='keys',tablefmt='fancy_grid'))
+            print("\n**********STDERR**********")
+            print(stderr)
+            print("\n**********STDOUT**********")
+            print(stdout)
             print()
             
         else:
@@ -243,6 +247,8 @@ class UnitTestGenerator:
             print(tabulate(result,headers='keys',tablefmt='fancy_grid'))
             print("\n**********STDERR**********")
             print(stderr)
+            print("\n**********STDOUT**********")
+            print(stdout)
             print()
             
     def delete_test(self,test_name: str,test_file_path:str) -> None:
@@ -264,34 +270,23 @@ class UnitTestGenerator:
         jacoco = '\\target\\site\\jacoco\\jacoco.csv'
         full_path = maven_path + jacoco
         if os.path.exists(full_path) and os.path.isfile(full_path):
-            print(full_path)
             df = pd.read_csv(full_path,index_col = [0])
             coverage_result = []
-            for index,row in df.iterrows():
-                coverage_result.append(calculate_coverage(row))
+
+            coverage_result.append(calculate_coverage(df))
             
             print("\nCode Coverage Quick Overview\n")
             print(tabulate(coverage_result,headers='keys',tablefmt='fancy_grid'))
+            print(f"\nTo get the full report check out {full_path}\n")
         else:
             print(f"Invalid path: {full_path} or file not found.")
             
 def calculate_coverage(row):
-    instruction_total = row['INSTRUCTION_MISSED'] + row['INSTRUCTION_COVERED']
-    print(instruction_total)
-    branch_total = row['BRANCH_MISSED'] + row['BRANCH_COVERED']
-    print(branch_total)
-    line_total = row['LINE_MISSED'] + row['LINE_COVERED']
-    print(line_total)
-    
-    instruction_coverage = (row['INSTRUCTION_COVERED']/instruction_total) * 100 if instruction_total else 0
-    branch_coverage = (row['BRANCH_COVERED']/branch_total) * 100 if branch_total else 0
-    line_coverage = (row['LINE_COVERED']/line_total) * 100 if line_total else 0
-    
+    instruction_total = row['INSTRUCTION_MISSED'].values[0] + row['INSTRUCTION_COVERED'].values[0]
+    instruction_coverage = (row['INSTRUCTION_COVERED'].values[0]/instruction_total) * 100 if instruction_total else 0
     return {
-        'Class':row['CLASS'],
-        'Instruction Coverage (%)': round(instruction_coverage,2),
-        'Branch Coverage (%)': round(branch_coverage,2),
-        'Line Coverage (%)': round(line_coverage,2)
+        'Class':row['CLASS'].values[0],
+        'Instruction Coverage (%)': round(instruction_coverage,2)
     }
         
         
