@@ -1,0 +1,46 @@
+[test_generation_prompt]
+system="""\
+"""
+
+user="""\
+##Overview
+Analyze the provided source code, test code, and the output from JUnit tests to determine the reason why each unit test case failed. Provide a detailed explanation for each test case failure in YAML format.
+
+# Steps
+
+1. **Review the JUnit Test Output:** 
+   - Inspect the error messages and stack traces for each failed test case. 
+   - Identify the location and nature of each error.
+
+2. **Analyze the Source Code:**
+   - Examine relevant sections of the source code which are referenced in the test output.
+   - Look for logical errors, exceptions, or other issues that could cause the test failure.
+
+3. **Examine the Test Code:**
+   - Check the assertions within each test case.
+   - Ensure that the test cases are properly set up and called with the correct parameters.
+
+4. **Determine the Reason for Failure:**
+   - For each failed test, summarize the reason(s) it failed based on your analysis.
+
+5. **Structure the Explanation:**
+   - Organize your findings for each test case into a coherent explanation.
+
+# Notes
+
+- Ensure that the YAML is syntactically correct and properly indented.
+- Provide sufficient detail in the explanation to understand the cause of the issue and inform potential fixes.
+- Consider edge cases such as misconfigured tests or setup errors.
+
+# Output Format
+
+The output should be a YAML object with the following structure:
+
+```yaml
+failed_test_cases:
+  - test_name: [Name of the failed test]
+    reason: [Detailed reason for the test failure, including relevant code sections and logic analysis]
+  - test_name: [Name of another failed test]
+    reason: [Detailed reason for the test failure]
+```
+"""

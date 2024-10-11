@@ -1,82 +1,56 @@
 package com.example;
 
-import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import org.junit.jupiter.api.Test;
 
 class CombinedDistanceConverterTests {
     DistanceConverterController controller = new DistanceConverterController();
 
     @Test
-    void test_meters_to_kilometers() {
-        double result = controller.metersToKilometers(1000);
-        assertEquals(1.0, result);
-    }
-
-    @Test
-    void test_kilometers_to_meters() {
-        double result = controller.kilometersToMeters(1);
-        assertEquals(1000.0, result);
-    }
-
-    @Test
-    void test_miles_to_kilometers() {
-        double result = controller.milesToKilometers(1);
-        assertEquals(1.60934, result, 0.00001);
-    }
-
-    @Test
-    void test_kilometers_to_miles() {
-        double result = controller.kilometersToMiles(1);
-        assertEquals(0.621371, result, 0.00001);
-    }
-
-    @Test
-    void test_meters_to_kilometers_zero() {
+    void testMetersToKilometersZero() {
         double result = controller.metersToKilometers(0);
-        assertEquals(0.0, result);
+        assertEquals(0, result);
     }
 
     @Test
-    void test_kilometers_to_meters_zero() {
-        double result = controller.kilometersToMeters(0);
-        assertEquals(0.0, result);
+    void testMetersToKilometersPositive() {
+        double result = controller.metersToKilometers(1500);
+        assertEquals(1.5, result);
     }
 
     @Test
-    void test_miles_to_kilometers_zero() {
-        double result = controller.milesToKilometers(0);
-        assertEquals(0.0, result);
-    }
-
-    @Test
-    void test_kilometers_to_miles_zero() {
-        double result = controller.kilometersToMiles(0);
-        assertEquals(0.0, result);
-    }
-
-    @Test
-    void test_meters_to_kilometers_negative() {
+    void testMetersToKilometersNegative() {
         double result = controller.metersToKilometers(-1000);
-        assertEquals(-1.0, result);
+        assertEquals(-1, result);
     }
 
     @Test
-    void test_kilometers_to_meters_negative() {
-        double result = controller.kilometersToMeters(-1);
-        assertEquals(-1000.0, result);
+    void testKilometersToMeters() {
+        double result = controller.kilometersToMeters(2);
+        assertEquals(2000, result);
     }
 
     @Test
-    void test_kilometers_to_miles_negative() {
-        double result = controller.kilometersToMiles(-1);
-        assertEquals(-0.621371, result, 0.00001);
+    void testMilesToKilometers() {
+        double result = controller.milesToKilometers(1);
+        assertEquals(1.60934, result);
     }
 
     @Test
-    void test_kilometers_to_miles_non_numeric() {
-        assertThrows(NumberFormatException.class, () -> {
-            controller.kilometersToMiles(Double.parseDouble("notANumber"));
-        });
+    void testKilometersToMiles() {
+        double result = controller.kilometersToMiles(1.60934);
+        assertEquals(1, result);
+    }
+
+    @Test
+    void testMetersToKilometersLargeValue() {
+        double result = controller.metersToKilometers(1000000);
+        assertEquals(1000, result);
+    }
+
+    @Test
+    void testKilometersToMetersLargeValue() {
+        double result = controller.kilometersToMeters(1000);
+        assertEquals(1000000, result);
     }
 }
