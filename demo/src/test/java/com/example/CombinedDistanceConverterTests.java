@@ -4,53 +4,38 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import org.junit.jupiter.api.Test;
 
 class CombinedDistanceConverterTests {
-    DistanceConverterController controller = new DistanceConverterController();
-
-    @Test
-    void testMetersToKilometersZero() {
-        double result = controller.metersToKilometers(0);
-        assertEquals(0, result);
-    }
-
     @Test
     void testMetersToKilometersPositive() {
+        DistanceConverterController controller = new DistanceConverterController();
         double result = controller.metersToKilometers(1500);
         assertEquals(1.5, result);
     }
 
     @Test
-    void testMetersToKilometersNegative() {
-        double result = controller.metersToKilometers(-1000);
-        assertEquals(-1, result);
+    void testMetersToKilometersZero() {
+        DistanceConverterController controller = new DistanceConverterController();
+        double result = controller.metersToKilometers(0);
+        assertEquals(0, result);
     }
 
     @Test
-    void testKilometersToMeters() {
+    void testKilometersToMetersPositive() {
+        DistanceConverterController controller = new DistanceConverterController();
         double result = controller.kilometersToMeters(2);
         assertEquals(2000, result);
     }
 
     @Test
-    void testMilesToKilometers() {
+    void testMilesToKilometersPositive() {
+        DistanceConverterController controller = new DistanceConverterController();
         double result = controller.milesToKilometers(1);
         assertEquals(1.60934, result);
     }
 
     @Test
-    void testKilometersToMiles() {
+    void testKilometersToMilesPositive() {
+        DistanceConverterController controller = new DistanceConverterController();
         double result = controller.kilometersToMiles(1.60934);
         assertEquals(1, result);
-    }
-
-    @Test
-    void testMetersToKilometersLargeValue() {
-        double result = controller.metersToKilometers(1000000);
-        assertEquals(1000, result);
-    }
-
-    @Test
-    void testKilometersToMetersLargeValue() {
-        double result = controller.kilometersToMeters(1000);
-        assertEquals(1000000, result);
     }
 }

@@ -61,7 +61,7 @@ class UnitTestGenerator:
         
         self.total_input_token_count += promt_token_count
         self.total_output_token_count += response_token_count
-        
+        print(self.prompt.get('user'))
         try:
             tests_dict = load_yaml(
                 response,

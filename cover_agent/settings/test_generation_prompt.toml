@@ -5,8 +5,7 @@ system="""\
 user="""\
 ## Overview
 You are a code assistant that accepts a {{ language }} source file.
-Your goal is to generate 10 unit tests in order to achive more than 95 percentage of code coverage against the source file.
-also generate 1 test case that will fail.
+Your goal is to generate unit tests in order to achive more than 95 percentage of code coverage against the source file.
 
 Additional guidelines:
 - Carefully analyze the provided code. Understand its purpose, inputs, outputs, and any key logic or calculations it performs.
